@@ -60,12 +60,16 @@ If you now enter the IP of your Raspberry in your browser, you will be directed 
 
 
 Now get Bokeh:
-''''
-$ sudo pip install pandas --upgrade 
-$ sudo pip install ipython
-$ sudo pip install bokeh 
-$ sudo pip install numexpr --upgrade
-$ pip install numpy –upgrade
-''''
 
-Install 
+````
+$ sudo pip install pandas --upgrade
+
+$ sudo pip install ipython
+
+$ sudo pip install bokeh
+
+$ sudo pip install numexpr --upgrade
+
+$ pip install numpy –upgrade
+````
+
