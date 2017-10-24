@@ -3,22 +3,25 @@ DataLogger
 
 
 Install following packages/ do the following in the terminal:
-
+````
 $ sudo apt-get install pigpio python-pigpio
-
+````
+````
 $ sudo apt-get install git
+````
+````
 
 $ sudo apt-get install build-essential python-dev
-
+````
 
 Get the Adafruit DHT11 Package:
-
+````
 $ git clone https://github.com/adafruit/Adafruit_Python_DHT 
-
+````
 If not available, use copy from my github:
-
+````
 $git clone https://...
-
+````
 
 go to the folder ($ cd Adafruit_Python_DHT) where the DHT_setup.py file is and install it:
 
