@@ -19,13 +19,20 @@ def temperature():
  
 next_check = time.time()
 time.sleep(1)
+s=0
 
 while True:
   if time.time() > next_check:
-    temperature()
-    t = datetime.datetime.now()
-    file = open("data.txt",a)
-    file.write(str(t)+'\t'+str(temperature)='\t'+str(humidity)+'\n')
-    file.close()
-    print "data updated"
-    next_check = time.time()+600 #wait another 600sec
+    try:
+      temperature()
+      t = datetime.datetime.now()
+      file = open("data.txt",a)
+      file.write(str(t)+'\t'+str(temperature)='\t'+str(humidity)+'\n')
+      file.close()
+      print "data updated"
+      next_check = time.time()+600 #wait another 600sec
+      s = 0
+    except (RuntimeError, TypeError, NameError):
+      s+=1
+      print "try again..."
+      time.sleep(5)
