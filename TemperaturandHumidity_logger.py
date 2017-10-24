@@ -28,4 +28,4 @@ while True:
     file.write(str(t)+'\t'+str(temperature)='\t'+str(humidity)+'\n')
     file.close()
     print "data updated"
-    next_check = time.time()+680 #wait another 680sec
+    next_check = time.time()+600 #wait another 600sec
