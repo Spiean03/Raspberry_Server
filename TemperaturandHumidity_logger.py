@@ -5,34 +5,37 @@ import datetime
 SENSOR = Adafruit_DHT.DHT11 #define what sensor being used
 PIN = 4 #define pin from Raspberry
 
-def temperature():
-  global temperature
-  global humidity
-  humidity, temperature = Adafruit_DHT.read_retry(SENSOR,PIN)
-  
-  if humidity is not None and temperature is not None:
-    return temperature, humidity
-  else:
-    humidity = None
-    temperature = None
-    return temperature, humidity
- 
+class update():
+  def temperature(self):
+    humidity, temperature = Adafruit_DHT.read_retry(SENSOR,PIN)
+
+    if humidity is not None:
+      self.humid = humidity
+    else:
+      self.humid = None
+      
+    if temperature is not None:
+      self.temp = temperature 
+    else:
+      self.temp = None
+
 next_check = time.time()
 time.sleep(1)
 s=0
-
+u = update()
 while True:
   if time.time() > next_check:
     try:
-      temperature()
+      u.temperature()
       t = datetime.datetime.now()
       file = open("data.txt",a)
-      file.write(str(t)+'\t'+str(temperature)='\t'+str(humidity)+'\n')
+      file.write(str(t)+'\t'+str(u.temp)='\t'+str(u.humid)+'\n')
       file.close()
       print "data updated"
       next_check = time.time()+600 #wait another 600sec
       s = 0
     except (RuntimeError, TypeError, NameError):
       s+=1
-      print "try again..."
+      print "try again... %s" %s
       time.sleep(5)
+      
