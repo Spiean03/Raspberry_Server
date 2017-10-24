@@ -17,7 +17,7 @@ $ git clone https://github.com/adafruit/Adafruit_Python_DHT
 ````
 If not available, use copy from my github:
 ````
-$ git clone https://...
+$ git clone https://github.com/Spiean03/Adafruit_Python_DHT
 ````
 
 go to the folder ($ cd Adafruit_Python_DHT) where the DHT_setup.py file is and install it:
