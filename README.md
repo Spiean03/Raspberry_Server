@@ -66,7 +66,7 @@ $ sudo pip install pandas --upgrade
 
 $ sudo pip install ipython
 
-$ sudo pip install bokeh
+$ pip --no-cache-dir install bokeh
 
 $ sudo pip install numexpr --upgrade
 
