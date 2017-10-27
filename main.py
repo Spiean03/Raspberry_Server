@@ -20,8 +20,8 @@ import numpy as np
 import datetime as dt
 import time
 import random
-import MKS937B
-import TemperatureandHumidity_logger
+
+
 
 import matplotlib.dates as mdates
 import pandas as pd
@@ -30,23 +30,24 @@ from bokeh.models import DatetimeTickFormatter
 from bokeh.plotting import figure, show, output_file, save
 from bokeh.palettes import Spectral11
 
-
-
 # Load MKS937B Controller
+import MKS937B
 mks = MKS937B.MKS()
 
 #Load DHT11 Sensor
+import TemperatureandHumidity_logger
 dht = TemperaturandHumidity_logger.DHT_Sensor()
 
 
 # Prepare the Max31855 GPIO pinouts:
+import max31855
 cs_pins = [4, 17, 18, 24]
 clock_pin = 23
 data_pin = 22
 units = "c"
 thermocouples = []
 for cs_pin in cs_pins:
-    thermocouples.append(MAX31855(cs_pin, clock_pin, data_pin, units))
+    thermocouples.append(max31855.MAX31855(cs_pin, clock_pin, data_pin, units))
 
 
 x_start = 0
