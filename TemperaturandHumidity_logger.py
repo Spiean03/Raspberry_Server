@@ -6,8 +6,11 @@ SENSOR = Adafruit_DHT.DHT11 #define what sensor being used
 PIN = 4 #define pin from Raspberry
 
 class update():
+  def __init__(self):
+		  self.SENSOR = Adafruit_DHT.DHT11 #define what sensor being used
+      self.PIN = 4 #define pin from Raspberry
   def temperature(self):
-    humidity, temperature = Adafruit_DHT.read_retry(SENSOR,PIN)
+    humidity, temperature = Adafruit_DHT.read_retry(self.SENSOR,self.PIN)
 
     if humidity is not None:
       self.humid = humidity
