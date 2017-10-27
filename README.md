@@ -62,7 +62,7 @@ If you now enter the IP of your Raspberry in your browser, you will be directed 
 Now get Bokeh:
 
 ````
-$ sudo pip install pandas --upgrade
+$ sudo apt-get install python-pandas
 
 $ sudo pip install ipython
 
