@@ -48,6 +48,8 @@ units = "c"
 thermocouples = []
 for cs_pin in cs_pins:
     thermocouples.append(max31855.MAX31855(cs_pin, clock_pin, data_pin, units))
+thermocouple_temperatures=[]
+
 
 
 x_start = 0
@@ -87,10 +89,12 @@ while True:
 
 time.sleep(5)
 
-while True:
+running = True
+while running == True:
       if time.time() > next_check:
                 x_datetime = datetime.datetime.now()
                 x_datetime = dt.datetime.strftime(x_datetime,'%Y-%m-%d %H:%M:%S')
+                #Get Data from DHT11 Sensor:
                 try:
                         dht.temperature()
                         file = open("data.txt",a)
@@ -101,49 +105,84 @@ while True:
                         dht.temp = None
                         dht.humid = None
                         print "couldn't connect to MKS... %s" %s
-  
+                        
+                #Get Data from MKS937B:              
                 try:
                         mks.measure()
                 except (RuntimeError, TypeError, NameError):
                         mks.main = None
                         mks.prep = None
-                        print "couldn't connect to MKS... %s" %s                        
-                    
-            
-            
-            
+                        print "couldn't connect to MKS... %s" %s
+                
+                #Get Data from Thermocouples:
+                thermocouple_temperatures =''
+                for thermocouple in thermocouples:
+                        rj = thermocouple.get_rj()       
+                        try:
+                                    tc = thermocouple.get()
+                                    thermocouple_temperatures += str(tc)+'\t'
+                        except MAX31855Error as e:
+                                    tc = None
+                                    thermocouple_temperatures += str(tc)+'\t'   
+                        print("tc: {} and rj: {}".format(tc, rj))
 
-                x.append(x_datetime)
-                #print x
-
-                y_random = random.randint(1,10000)
-
-                #y_main.append(mks.main)
-                #y_prep.append(mks.prep)
-
+                #Save the data aquired from the sensors/controllers:
                 f = open("data_pressure.txt", 'a')
-                f.write(str(x_datetime)+'\t'+str(mks.main)+'\t'+str(mks.prep)+'\n')
+                f.write(str(x_datetime)+'\t'+str(mks.main)+'\t'+str(mks.prep)+str(dht.temp)='\t'+str(dht.humid)+thermocouple_temperatures+'\n')
                 f.close()
                 data = pd.read_csv("data_pressure.txt",sep='\t', header = None)
-                data.columns =["time","main","prep"]
-                try:
-                    data2 = pd.read_csv("http://132.206.186.19/data.txt",sep='\t', header = None)
-                    data2.columns =["time2","temp", "humid"]
-                except urllib2.URLError:
-                    print "Couldn't connect to Raspberry Pi"        
-                x1 = []
-                x2 = []
+                data.columns =["time","main","prep","temp","humid","tc1","tc2","tc3","tc4"]
+                        
+                #Prepare everything for the plot:                
+                x = []
                 y_main= []
                 y_prep= []
                 y_temp = []
                 y_humid = []
+                tc1 = []
+                tc2 = []
+                tc3 = []
+                tc4 = []
+
+                #Start Plotting:
+                p = figure(title="UHV System - Pressure", x_axis_type = "datetime", y_axis_type="log",
+                           y_range=(1E-11, 1000), plot_width = 800, plot_height = 600)
+            
+                #Pressure Main Plot:
                 for element in data["time"]:
                     new = dt.datetime.strptime(element,'%Y-%m-%d %H:%M:%S')
-                    x1.append(new)
+                    x.append(new)
                 for element in data["main"]:
                     y_main.append(element)
+                p.line(x, y_main, legend="Pressure Main",
+                       line_color=Spectral11[1], line_dash="dashed", line_width = 3)
+                y_main = []
+                          
+                #Pressure Prep Plot:
                 for element in data["prep"]:
                     y_prep.append(element)
+                p.line(x, y_prep, legend="Pressure Prep",
+                       line_color=Spectral11[2], line_dash="dashed", line_width=3)       
+                y_prep = []
+            
+                #Temperature  DHT Sensor:
+                for element in data["temp"]:
+                        y_temp.append(element)
+                p.line(x, y_temp, legend="Temperature",
+                       line_color=Spectral11[3], line_dash="dashed", line_width=3)
+                y_temp = []
+                        
+                #Humidity DHT Sensor:
+                for element in data["temp"]:
+                        y_humid.append(element)
+                p.line(x, y_humid, legend="Temperature",
+                       line_color=Spectral11[4], line_dash="dashed", line_width=3)
+                y_humid = []
+                        
+                 
+                        
+            
+
 
                  #for the temperature:
                 try:
@@ -167,19 +206,20 @@ while True:
                 #x = np.linspace(0.1, 5, 100)
                 p = figure(title="UHV System - Pressure", x_axis_type = "datetime", y_axis_type="log",
                            y_range=(1E-11, 1000), plot_width = 800, plot_height = 600)
+                p.legend.location = "top_left"
+                p.xaxis.axis_label = 'Time'
+                p.yaxis.axis_label = 'Pressure (mbar)'
+                        
             #    p.xaxis.formatter = DatetimeTickFormatter(
             #        hours=["%d %B %Y"],
             #        days=["%d %B %Y"],
             #        months=["%d %B %Y"],
             #        years=["%d %B %Y"],
             #    )
-                p.line(x1, y_main, legend="Pressure Main",
-                       line_color=Spectral11[1], line_dash="dashed", line_width = 3)
-                p.line(x1, y_prep, legend="Pressure Prep",
-                       line_color=Spectral11[2], line_dash="dashed", line_width=3) 
 
-                p.line(x2, y_temp, legend="Temperature",
-                       line_color=Spectral11[3], line_dash="dashed", line_width=3)
+
+
+
                 p.line(x2, y_humid, legend="Humidity",
                        line_color=Spectral11[4], line_dash="dashed", line_width=3)   
 
@@ -210,7 +250,9 @@ while True:
 
                 output_file("logplot2.html", title="Pressure over Time")
                 print "done"
+                thermocouple_temperatures =[]
                 save(p)
                 time.sleep(900)
                 #x_start += 900
                 #show(p)  # open a browser
+      next_check = time.time()+600 #wait another 600sec
