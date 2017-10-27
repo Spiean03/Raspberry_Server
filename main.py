@@ -54,18 +54,18 @@ while True:
     x_datetime=dt.datetime.now()
     print x_datetime
     x_datetime = dt.datetime.strftime(x_datetime,'%Y-%m-%d %H:%M:%S')
-    m.measure()
+    mks.measure()
     
     x.append(x_datetime)
     #print x
     
     y_random = random.randint(1,10000)
     
-    #y_main.append(m.main)
-    #y_prep.append(m.prep)
+    #y_main.append(mks.main)
+    #y_prep.append(mks.prep)
     
     f = open("data_pressure.txt", 'a')
-    f.write(str(x_datetime)+'\t'+str(m.main)+'\t'+str(m.prep)+'\n')
+    f.write(str(x_datetime)+'\t'+str(mks.main)+'\t'+str(mks.prep)+'\n')
     f.close()
     data = pd.read_csv("data_pressure.txt",sep='\t', header = None)
     data.columns =["time","main","prep"]
