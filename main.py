@@ -32,8 +32,22 @@ from bokeh.palettes import Spectral11
 
 
 
+# Load MKS937B Controller
 mks = MKS937B.MKS()
+
+#Load DHT11 Sensor
 dht = TemperaturandHumidity_logger.DHT_Sensor()
+
+
+# Prepare the Max31855 GPIO pinouts:
+cs_pins = [4, 17, 18, 24]
+clock_pin = 23
+data_pin = 22
+units = "c"
+thermocouples = []
+for cs_pin in cs_pins:
+    thermocouples.append(MAX31855(cs_pin, clock_pin, data_pin, units))
+
 
 x_start = 0
 x = []
