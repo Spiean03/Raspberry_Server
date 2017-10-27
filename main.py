@@ -21,15 +21,19 @@ import datetime as dt
 import time
 import random
 import MKS937B
+import TemperatureandHumidity_logger
+
 import matplotlib.dates as mdates
 import pandas as pd
 #myFmt = mdates.DateFormatter('%d')
-
 from bokeh.models import DatetimeTickFormatter
 from bokeh.plotting import figure, show, output_file, save
 from bokeh.palettes import Spectral11
+
+
+
 mks = MKS937B.MKS()
-dht = DHT_Sensor()
+dht = TemperaturandHumidity_logger.DHT_Sensor()
 
 x_start = 0
 x = []
