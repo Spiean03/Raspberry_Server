@@ -28,8 +28,8 @@ import pandas as pd
 from bokeh.models import DatetimeTickFormatter
 from bokeh.plotting import figure, show, output_file, save
 from bokeh.palettes import Spectral11
-m = MKS937B.MKS()
-
+mks = MKS937B.MKS()
+dht = DHT_Sensor()
 
 x_start = 0
 x = []
