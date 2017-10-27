@@ -5,7 +5,7 @@ import datetime
 SENSOR = Adafruit_DHT.DHT11 #define what sensor being used
 PIN = 4 #define pin from Raspberry
 
-class update():
+class DHT_Sensor():
   def __init__(self):
 		  self.SENSOR = Adafruit_DHT.DHT11 #define what sensor being used
       self.PIN = 4 #define pin from Raspberry
@@ -25,7 +25,7 @@ class update():
 next_check = time.time()
 time.sleep(1)
 s=0
-u = update()
+u = DHT_Sensor()
 while True:
   if time.time() > next_check:
     try:
