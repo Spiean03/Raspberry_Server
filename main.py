@@ -8,10 +8,6 @@ Created on Fri Oct 20 16:10:01 2017
             McGill University
             Montreal, Canada
 @contact:   andreas.spielhofer@mail.mcgill.ca
-
-
-Directions:
-            
 """
 
 import os
@@ -147,6 +143,9 @@ while running == True:
                 #Start Plotting:
                 p = figure(title="UHV System - Pressure", x_axis_type = "datetime", y_axis_type="log",
                            y_range=(1E-11, 1000), plot_width = 800, plot_height = 600)
+                p.legend.location = "top_left"
+                p.xaxis.axis_label = 'Time'
+                p.yaxis.axis_label = 'Pressure (mbar)'
             
                 #Pressure Main Plot:
                 for element in data["time"]:
@@ -173,56 +172,39 @@ while running == True:
                 y_temp = []
                         
                 #Humidity DHT Sensor:
-                for element in data["temp"]:
+                for element in data["humid"]:
                         y_humid.append(element)
-                p.line(x, y_humid, legend="Temperature",
+                p.line(x, y_humid, legend="Humidity",
                        line_color=Spectral11[4], line_dash="dashed", line_width=3)
                 y_humid = []
-                        
                  
+                #Data TC1     
+                for element in data["tc1"]:
+                        tc1.append(element)
+                p.line(x, tc1, legend="Temperature TC1",
+                       line_color=Spectral11[5], line_dash="dashed", line_width=3)
+                tc1 = []                 
+ 
+                #Data TC2     
+                for element in data["tc2"]:
+                        tc2.append(element)
+                p.line(x, tc2, legend="Temperature TC2",
+                       line_color=Spectral11[6], line_dash="dashed", line_width=3)
+                tc2 = []
                         
-            
-
-
-                 #for the temperature:
-                try:
-                    for element in data2["time2"]:
-
-                        new2 = dt.datetime.strptime(element,'%Y-%m-%d %H:%M:%S')
-                        x2.append(new2)
-                    for element in data2["temp"]:
-                        y_temp.append(element)
-                    for element in data2["humid"]:
-                        y_humid.append(element)
-                except NameError:
-                    print "Couldn't connect to Raspberry Pi"
-            #    print x_day
-            #    x_month=datetime.datetime.now().strftime('%m')
-            #    print x_month
-            #    x = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
-            #    print x
-
-
-                #x = np.linspace(0.1, 5, 100)
-                p = figure(title="UHV System - Pressure", x_axis_type = "datetime", y_axis_type="log",
-                           y_range=(1E-11, 1000), plot_width = 800, plot_height = 600)
-                p.legend.location = "top_left"
-                p.xaxis.axis_label = 'Time'
-                p.yaxis.axis_label = 'Pressure (mbar)'
+                #Data TC3     
+                for element in data["tc3"]:
+                        tc3.append(element)
+                p.line(x, tc3, legend="Temperature TC3",
+                       line_color=Spectral11[7], line_dash="dashed", line_width=3)
+                tc3 = []   
                         
-            #    p.xaxis.formatter = DatetimeTickFormatter(
-            #        hours=["%d %B %Y"],
-            #        days=["%d %B %Y"],
-            #        months=["%d %B %Y"],
-            #        years=["%d %B %Y"],
-            #    )
-
-
-
-
-                p.line(x2, y_humid, legend="Humidity",
-                       line_color=Spectral11[4], line_dash="dashed", line_width=3)   
-
+                #Data TC4     
+                for element in data["tc4"]:
+                        tc4.append(element)
+                p.line(x, tc4, legend="Temperature TC4",
+                       line_color=Spectral11[8], line_dash="dashed", line_width=3)
+                tc4 = []   
 
             #    p.text_font="calibri" 
             #    p.text_font_size="13" 
@@ -243,16 +225,11 @@ while running == True:
             #    p.line(x, 10**(x**2), legend="y=10^(x^2)",
             #           line_color="coral", line_dash="dashed", line_width=2)
             #    
-                p.legend.location = "top_left"
-
-                p.xaxis.axis_label = 'Time'
-                p.yaxis.axis_label = 'Pressure (mbar)'
 
                 output_file("logplot2.html", title="Pressure over Time")
                 print "done"
                 thermocouple_temperatures =[]
                 save(p)
-                time.sleep(900)
                 #x_start += 900
                 #show(p)  # open a browser
       next_check = time.time()+600 #wait another 600sec
