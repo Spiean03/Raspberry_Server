@@ -69,22 +69,6 @@ y_prep= []
 next_check = time.time()
 time.sleep(1)
 
-
-while True:
-  if time.time() > next_check:
-    try:
-      u.temperature()
-      t = datetime.datetime.now()
-      file = open("data.txt",a)
-      file.write(str(t)+'\t'+str(u.temp)='\t'+str(u.humid)+'\n')
-      file.close()
-      print "data updated"
-      next_check = time.time()+600 #wait another 600sec
-      s = 0
-    except (RuntimeError, TypeError, NameError):
-
-time.sleep(5)
-
 running = True
 while running == True:
       if time.time() > next_check:
