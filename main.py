@@ -31,8 +31,8 @@ import MKS937B
 mks = MKS937B.MKS()
 
 #Load DHT11 Sensor
-import TemperatureandHumidity_logger
-dht = TemperatureandHumidity_logger.DHT_Sensor()
+import DHT_logger
+dht = DHT_logger.DHT_Sensor()
 
 
 # Prepare the Max31855 GPIO pinouts:
