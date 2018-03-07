@@ -87,4 +87,8 @@ $ sudo nano /etc/rc.local
 add the following line to the script, where scriptname.py should be /home/pi/Raspberry_Server/Run_main.py:
 (sleep 1;python scriptname.py)&
 ````
-
+When you have installed bokeh on your computer, place the folder 'crossfilter' into the bokeh directory (c:/users/user/..). In the CMD, type:
+````
+bokeh serve --show crossfilter
+````
+This will run the application.
