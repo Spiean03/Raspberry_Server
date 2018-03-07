@@ -1,6 +1,16 @@
 # Raspberry_Server
 DataLogger
 
+Set a fixed ip:
+````
+$sudo nano  /etc/network/interfaces
+
+$auto eth0
+$iface eth0 inet static
+$    address 192.168.1.42
+$    netmask 255.255.255.0
+$    gateway 192.168.1.1
+````
 
 Install following packages/ do the following in the terminal:
 ````
@@ -42,8 +52,6 @@ $ sudo apt-get install apache2 -y
 install PHP:
 ````
 $ sudo apt-get install php libapache2-mod-php -y
-
-$ git clone https://
 ````
 This default web page is just a HTML file on the filesystem. It is located at /var/www/html/index.html, so go there:
 ````
