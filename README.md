@@ -81,10 +81,10 @@ $ sudo pip install numexpr --upgrade
 $ pip install numpy –upgrade
 ````
 Start script automatically on bootup:
-''''
+````
 $ sudo nano /etc/rc.local 
 
 add the following line to the script, where scriptname.py should be /home/pi/Raspberry_Server/Run_main.py:
 (sleep 1;python scriptname.py)&
-''''
+````
 
