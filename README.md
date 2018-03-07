@@ -3,13 +3,13 @@ DataLogger
 
 Set a fixed ip:
 ````
-$sudo nano  /etc/network/interfaces
+$ sudo nano  /etc/network/interfaces
 
-$auto eth0
-$iface eth0 inet static
-$    address 192.168.1.42
-$    netmask 255.255.255.0
-$    gateway 192.168.1.1
+auto eth0
+iface eth0 inet static
+    address 192.168.1.42
+    netmask 255.255.255.0
+    gateway 192.168.1.1
 ````
 
 Install following packages/ do the following in the terminal:
