@@ -1,5 +1,6 @@
 # Raspberry_Server
-DataLogger
+DataLogger. Data is stored on a Raspberry Pi Server; Bokeh interactive visualization library is used to update the plot.
+
 ![alt text](/crossfilter/Interactive_Graph.png )
 
 Set a fixed ip:
