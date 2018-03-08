@@ -1,6 +1,6 @@
 # Raspberry_Server
 DataLogger
-![alt text](https://github.com/Spiean03/Raspberry_Server/crossfilter/Interactive_Graph.png)
+![alt text](/crossfilter/Interactive_Graph.png )
 
 Set a fixed ip:
 ````
