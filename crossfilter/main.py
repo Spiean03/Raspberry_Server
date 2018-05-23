@@ -154,8 +154,12 @@ def create_figure():
     if y.value in discrete2:
         kw['y_range'] = sorted(set(ys))
     kw['title'] = "%s of %s" % (y_title, x_title)
-
-    p = figure(x_axis_type ="datetime", plot_height=600, plot_width=800, tools='pan,box_zoom,reset', **kw)
+    
+    if y.value == "Pressure Main and LoadLock" or y.value == "Pressure Main" or y.value == "Pressure LoadLock":
+        p = figure(x_axis_type ="datetime", y_axis_type = "log", plot_height=600, plot_width=800, tools='pan,box_zoom,reset', **kw)
+    else:
+        p = figure(x_axis_type ="datetime", y_axis_type = "linear", plot_height=600, plot_width=800, tools='pan,box_zoom,reset', **kw)
+        
     p.xaxis.axis_label = x_title
     p.yaxis.axis_label = y_title
 
@@ -193,7 +197,7 @@ def create_figure():
         d = "#de3154"
         e = "#debc31"
         f = "#31de65"
-     
+        
     if y.value =="Pressure Main and LoadLock":
         p.circle(x=xs, y=ys, color=c, size=sz, line_color="white", alpha=0.6, hover_color='white', hover_alpha=0.5)
         p.line(x=xs, y=ys, color=c, line_width=2, legend = "Pressure Main [mbar]")
@@ -242,4 +246,4 @@ controls = widgetbox([x, y, color, size], width=250)
 layout = row(controls, create_figure())
 
 curdoc().add_root(layout)
-curdoc().title = "DataLogger"
+curdoc().title = "Crossfilter"
