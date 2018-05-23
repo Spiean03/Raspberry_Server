@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Oct 20 16:10:01 2017
+@author:    Andreas Spielhofer
+            Ph.D. Candidate
+            Physics Departement
+            McGill University
+            Montreal, Canada
+@contact:   andreas.spielhofer@mail.mcgill.ca
+"""
+
 import pandas as pd
 import numpy as np
 import datetime
